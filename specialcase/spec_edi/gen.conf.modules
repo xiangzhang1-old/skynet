@@ -1,0 +1,7 @@
+generic:orbital_max=9,max_energy=7,nlinetotal=140:
+tex::
+notex::
+splitdos::
+vaspkit::
+spin::
+nospin::

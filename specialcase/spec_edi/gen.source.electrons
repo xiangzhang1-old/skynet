@@ -1,0 +1,94 @@
+#!/bin/bash
+# data strcture: electrons_${ele}[$orbital]=$occupation
+#                orbitals_${ele}[1/2/3/4/5..]=1s/2p/...
+#                valenceo_${ele}[1/2/3/4/5..]=4p/4s/3d... (reverse)
+#                number_nonvalence_electrons[$ele],number_valenceo[$ele],number_valence_electrons[$ele]
+#                (in read) l1,l2,l3,l4,l5,l6,l7=0,1,2,3,4...
+#                number_orbitals[$ele]
+#                (in read) index_orbital,index_valenceo,line_stdout,tmp_orbital_name
+#                (data)    ltospdf[0,1,2,3,4...]=s/p/d/f...
+# algorithm:     for each element:
+#                 read number_orbitals[$ele]
+#                 read electrons_${ele}[$orbital],orbitals_${ele}[1/2/3/..]
+#                 calculated number_valenceo
+#                 establish valenceo_$ele[1/2/3/4/5..]
+#                 print number_valence_electrons,number_nonvalence_electrons
+#                 print valenceo_${ele} and occupations
+
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+
+# algorithm:     for each element:
+for ele in $element
+do
+#                 establish l_progress[0/1/2/3/4/5]
+  declare -A ltospdf[0]=s
+  declare -A ltospdf[1]=p
+  declare -A ltospdf[2]=d
+  declare -A ltospdf[3]=f
+  declare -A ltospdf[4]=g
+  declare -A ltospdf[5]=h
+  declare -A ltospdf[6]=j
+  declare -A l_progress[0]=0
+  declare -A l_progress[1]=0
+  declare -A l_progress[2]=0
+  declare -A l_progress[3]=0
+  declare -A l_progress[4]=0
+  declare -A l_progress[5]=0
+  declare -A l_progress[6]=0
+  declare -A l_progress[7]=0
+#                 read number_orbitals
+  declare -A number_orbitals[$ele]=`${SCRIPTDIR}/rhfin $ele|wc -l`
+  number_orbitals[$ele]=$((${number_orbitals[$ele]}-3))
+  declare -A number_valence_electrons[$ele]=`${SCRIPTDIR}/pot $ele | sed -n '2p'`
+  number_valence_electrons[$ele]=`echo "scale=0; (${number_valence_electrons[$ele]}+0.5)/1" | bc`
+  tmp=`${SCRIPTDIR}/rhfin $ele | sed -n '2p'`
+  tmp="${tmp: -8}"
+  declare -A number_nonvalence_electrons[$ele]=`echo "scale=0; ($tmp+0.5)/1" | bc`
+  for ((index_orbital=1;index_orbital<=${number_orbitals[$ele]};index_orbital++))
+  do
+    line_stdout=$(($index_orbital+3))
+    firstiteminline=`${SCRIPTDIR}/rhfin $ele | sed -n "${line_stdout}p" | awk '{print $1}'`
+    firstiteminline=`echo "scale=0; ($firstiteminline+0.5)/1" | bc`
+    tmp=${l_progress[$firstiteminline]}
+    tmp=${ltospdf[$tmp]}
+    tmp_orbital_name="$firstiteminline$tmp"
+    l_progress[$firstiteminline]=$((${l_progress[$firstiteminline]}+1))
+    # var="${modname}_nckw"["$kwname"]; echo ${!var}; would expand var from "${modname}_nckw"["$kwname"] to opt_nckw[isif], then proceeds to run ${opt_nckw[isif]}
+#                 read electrons_${ele}[$orbital],orbitals_${ele}[1/2/3/..]
+    lastiteminline=`${SCRIPTDIR}/rhfin $ele | sed -n "${line_stdout}p"`
+    lastiteminline="${lastiteminline: -7}"
+    lastiteminline=`echo "scale=0; ($lastiteminline+0.5)/1" | bc`
+    declare -A electrons_${ele}[$tmp_orbital_name]=$lastiteminline
+    declare -A orbitals_${ele}[$index_orbital]=$tmp_orbital_name
+#                 calculated number_valenceo
+  done
+  tmp_sum=0
+  for ((index_orbital=${number_orbitals[$ele]};index_orbital>=1;index_orbital--))
+  do
+    var="orbitals_${ele}[$index_orbital]}"
+    tmp_orbital_name="${!var}"
+    var="electrons_${ele}[$tmp_orbital_name]"
+    tmp_orbital_occupation="${!var}"
+    tmp_sum=$((${tmp_sum}+${tmp_orbital_occupation}))
+    if (( $tmp_sum > ${number_valence_electrons[$ele]} )) ; then
+      echo "error: tmp_sum {$tmp_sum} > number_valence_electrons {${number_valence_electrons[$ele]}}"
+      exit 1
+    elif [[ $tmp_sum == ${number_valence_electrons[$ele]} ]] ;then
+      break
+    fi
+  done
+  declare -A number_valenceo[$ele]=$((${number_orbitals[$ele]}-$index_orbital+1))
+  for ((index_valenceo=1;index_valenceo<=${number_valenceo[$ele]};index_valenceo++))
+  do
+    index_orbital=$((${number_orbitals[$ele]}-${number_valenceo[$ele]}+$index_valenceo)) 
+    var="orbitals_${ele}[$index_orbital]}"
+    tmp_orbital_name="${!var}"
+    declare -A valenceo_$ele[$index_valenceo]="$tmp_orbital_name"
+  done
+done
+#                 print number_valence_electrons,number_nonvalence_electrons
+for ele in `echo $element | awk '{print $2,$3}'`
+do
+  echo -n "${number_valence_electrons[$ele]} "
+done

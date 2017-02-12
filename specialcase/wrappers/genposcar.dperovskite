@@ -1,0 +1,1 @@
+../pygen.py generic template \"dperovskite\" genposcar nions 4 ion1 \"La\" ion2 \"Mn\" ion3 \"As\" ion4 \"O\" readposcar optposcar

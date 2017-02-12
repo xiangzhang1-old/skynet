@@ -1,0 +1,8 @@
+#!/bin/bash
+u=`cat ~/src/qchem_scripts/master/specialcase/UJdatabase | grep "$1 " | awk '{printf "%3.1f", $2 }'`
+j=`cat  ~/src/qchem_scripts/master/specialcase/UJdatabase | grep "$1 " | awk '{printf "%3.1f", $3 }'`
+if [ -z "$u" ] ;then
+u=0
+j=0
+fi
+echo $u $j

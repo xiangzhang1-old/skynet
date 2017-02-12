@@ -1,0 +1,76 @@
+Integrated Projected DOS: integration of DOS of wavefunctions projected onto spherical harmonics within spheres of a radius RWIGS
+La1_UP:  s 1.01 p_y 0.95 p_z 0.95 p_x 0.95 d_xy 0.05 d_yz 0.06 d_z2 0.05 d_xz 0.06 d_x^2-y^2 0.06  
+La2_UP:  s 1.01 p_y 0.95 p_z 0.95 p_x 0.95 d_xy 0.05 d_yz 0.06 d_z2 0.05 d_xz 0.06 d_x^2-y^2 0.06  
+La3_UP:  s 1.01 p_y 0.95 p_z 0.95 p_x 0.95 d_xy 0.05 d_yz 0.06 d_z2 0.05 d_xz 0.06 d_x^2-y^2 0.06  
+La4_UP:  s 1.01 p_y 0.95 p_z 0.95 p_x 0.95 d_xy 0.05 d_yz 0.06 d_z2 0.05 d_xz 0.06 d_x^2-y^2 0.06  
+La1_DN:  s 1.01 p_y 0.95 p_z 0.95 p_x 0.95 d_xy 0.04 d_yz 0.06 d_z2 0.05 d_xz 0.06 d_x^2-y^2 0.06  
+La2_DN:  s 1.01 p_y 0.95 p_z 0.95 p_x 0.95 d_xy 0.04 d_yz 0.06 d_z2 0.05 d_xz 0.06 d_x^2-y^2 0.06  
+La3_DN:  s 1.01 p_y 0.95 p_z 0.95 p_x 0.95 d_xy 0.04 d_yz 0.06 d_z2 0.05 d_xz 0.06 d_x^2-y^2 0.06  
+La4_DN:  s 1.01 p_y 0.95 p_z 0.95 p_x 0.95 d_xy 0.04 d_yz 0.06 d_z2 0.05 d_xz 0.06 d_x^2-y^2 0.06  
+Zn1_UP:  s 0.19 p_y 0.07 p_z 0.08 p_x 0.08 d_xy 1.01 d_yz 0.99 d_z2 1.02 d_xz 0.99 d_x^2-y^2 0.99  
+Zn2_UP:  s 0.19 p_y 0.07 p_z 0.08 p_x 0.08 d_xy 1.01 d_yz 0.99 d_z2 1.02 d_xz 0.99 d_x^2-y^2 0.99  
+Zn1_DN:  s 0.19 p_y 0.07 p_z 0.08 p_x 0.08 d_xy 1.01 d_yz 0.99 d_z2 1.02 d_xz 0.99 d_x^2-y^2 0.99  
+Zn2_DN:  s 0.19 p_y 0.07 p_z 0.08 p_x 0.08 d_xy 1.01 d_yz 0.99 d_z2 1.02 d_xz 0.99 d_x^2-y^2 0.99  
+Mo1_UP:  s 0.24 p_y 0.13 p_z 0.12 p_x 0.13 d_xy 0.39 d_yz 0.83 d_z2 0.43 d_xz 0.81 d_x^2-y^2 0.40  
+Mo2_UP:  s 0.24 p_y 0.13 p_z 0.12 p_x 0.13 d_xy 0.39 d_yz 0.83 d_z2 0.43 d_xz 0.81 d_x^2-y^2 0.40  
+Mo1_DN:  s 0.22 p_y 0.13 p_z 0.11 p_x 0.12 d_xy 0.35 d_yz 0.16 d_z2 0.34 d_xz 0.16 d_x^2-y^2 0.21  
+Mo2_DN:  s 0.22 p_y 0.13 p_z 0.11 p_x 0.12 d_xy 0.35 d_yz 0.16 d_z2 0.34 d_xz 0.16 d_x^2-y^2 0.21  
+O1_UP:  s 0.79 p_y 0.60 p_z 0.57 p_x 0.61 d_xy 0.00 d_yz 0.00 d_z2 0.00 d_xz 0.00 d_x^2-y^2 0.00  
+O2_UP:  s 0.79 p_y 0.60 p_z 0.57 p_x 0.61 d_xy 0.00 d_yz 0.00 d_z2 0.00 d_xz 0.00 d_x^2-y^2 0.00  
+O3_UP:  s 0.79 p_y 0.60 p_z 0.57 p_x 0.61 d_xy 0.00 d_yz 0.00 d_z2 0.00 d_xz 0.00 d_x^2-y^2 0.00  
+O4_UP:  s 0.79 p_y 0.60 p_z 0.57 p_x 0.61 d_xy 0.00 d_yz 0.00 d_z2 0.00 d_xz 0.00 d_x^2-y^2 0.00  
+O5_UP:  s 0.80 p_y 0.58 p_z 0.62 p_x 0.58 d_xy 0.00 d_yz 0.00 d_z2 0.00 d_xz 0.00 d_x^2-y^2 0.00  
+O6_UP:  s 0.80 p_y 0.58 p_z 0.62 p_x 0.58 d_xy 0.00 d_yz 0.00 d_z2 0.00 d_xz 0.00 d_x^2-y^2 0.00  
+O7_UP:  s 0.80 p_y 0.58 p_z 0.61 p_x 0.58 d_xy 0.00 d_yz 0.00 d_z2 0.00 d_xz 0.00 d_x^2-y^2 0.00  
+O8_UP:  s 0.80 p_y 0.58 p_z 0.61 p_x 0.58 d_xy 0.00 d_yz 0.00 d_z2 0.00 d_xz 0.00 d_x^2-y^2 0.00  
+O9_UP:  s 0.79 p_y 0.58 p_z 0.62 p_x 0.58 d_xy 0.00 d_yz 0.00 d_z2 0.00 d_xz 0.00 d_x^2-y^2 0.00  
+O10_UP:  s 0.80 p_y 0.58 p_z 0.62 p_x 0.58 d_xy 0.00 d_yz 0.00 d_z2 0.00 d_xz 0.00 d_x^2-y^2 0.00  
+O11_UP:  s 0.80 p_y 0.58 p_z 0.61 p_x 0.58 d_xy 0.00 d_yz 0.00 d_z2 0.00 d_xz 0.00 d_x^2-y^2 0.00  
+O12_UP:  s 0.80 p_y 0.58 p_z 0.61 p_x 0.58 d_xy 0.00 d_yz 0.00 d_z2 0.00 d_xz 0.00 d_x^2-y^2 0.00  
+O1_DN:  s 0.79 p_y 0.58 p_z 0.58 p_x 0.58 d_xy -0.00 d_yz -0.00 d_z2 -0.00 d_xz -0.00 d_x^2-y^2 -0.00  
+O2_DN:  s 0.79 p_y 0.58 p_z 0.58 p_x 0.58 d_xy -0.00 d_yz -0.00 d_z2 -0.00 d_xz -0.00 d_x^2-y^2 -0.00  
+O3_DN:  s 0.79 p_y 0.58 p_z 0.58 p_x 0.58 d_xy -0.00 d_yz -0.00 d_z2 -0.00 d_xz -0.00 d_x^2-y^2 -0.00  
+O4_DN:  s 0.79 p_y 0.58 p_z 0.58 p_x 0.58 d_xy -0.00 d_yz -0.00 d_z2 -0.00 d_xz -0.00 d_x^2-y^2 -0.00  
+O5_DN:  s 0.79 p_y 0.59 p_z 0.58 p_x 0.58 d_xy -0.00 d_yz -0.00 d_z2 -0.00 d_xz -0.00 d_x^2-y^2 -0.00  
+O6_DN:  s 0.79 p_y 0.59 p_z 0.58 p_x 0.58 d_xy -0.00 d_yz -0.00 d_z2 -0.00 d_xz -0.00 d_x^2-y^2 -0.00  
+O7_DN:  s 0.79 p_y 0.58 p_z 0.58 p_x 0.58 d_xy -0.00 d_yz -0.00 d_z2 -0.00 d_xz -0.00 d_x^2-y^2 -0.00  
+O8_DN:  s 0.79 p_y 0.58 p_z 0.58 p_x 0.58 d_xy -0.00 d_yz -0.00 d_z2 -0.00 d_xz -0.00 d_x^2-y^2 -0.00  
+O9_DN:  s 0.79 p_y 0.59 p_z 0.58 p_x 0.58 d_xy -0.00 d_yz -0.00 d_z2 -0.00 d_xz -0.00 d_x^2-y^2 -0.00  
+O10_DN:  s 0.79 p_y 0.59 p_z 0.58 p_x 0.58 d_xy -0.00 d_yz -0.00 d_z2 -0.00 d_xz -0.00 d_x^2-y^2 -0.00  
+O11_DN:  s 0.79 p_y 0.58 p_z 0.58 p_x 0.58 d_xy -0.00 d_yz -0.00 d_z2 -0.00 d_xz -0.00 d_x^2-y^2 -0.00  
+O12_DN:  s 0.79 p_y 0.58 p_z 0.58 p_x 0.58 d_xy -0.00 d_yz -0.00 d_z2 -0.00 d_xz -0.00 d_x^2-y^2 -0.00  
+
+ An oversimplified version of Bader charge. Boundaries are defined as zero-flux surfaces. Note that certain flags should be set (e.g. LAECHG) for this to be reasonable.
+La: 8.80 8.82 8.82 8.80 
+Zn: 10.54 10.54 
+Mo: 3.24 3.24 
+O: 7.42 7.42 7.42 7.42 7.44 7.44 7.43 7.44 7.44 7.44 7.43 7.44 
+
+
+An also oversimplified version of Bader magnetic charge. 
+La: 0.01 0.01 0.01 0.01 
+Zn: 0.00 0.00 
+Mo: 1.68 1.68 
+O: 0.07 0.07 0.07 0.07 0.04 0.04 0.04 0.04 0.04 0.04 0.04 0.04 
+
+
+Total charge inside the Wigner-Seitz Radius in OUTCAR
+La:   8.43 8.43 8.43 8.43 
+Zn:   10.82 10.82 
+Mo:   5.30 5.30 
+O:   5.10 5.10 5.10 5.10 5.11 5.11 5.10 5.10 5.11 5.11 5.10 5.10 
+
+
+Charge inside the Wigner-Seitz Radius, decomposed onto spdf orbitals in OUTCAR
+La:   s 2.02 p 5.70 d 0.54 f 0.17 tot 8.43 
+Zn:   s 0.38 p 0.47 d 9.98 f 0.00 tot 10.82 
+Mo:   s 0.46 p 0.74 d 4.10 f 0.00 tot 5.30 
+O:   s 1.59 p 3.51 d 0.00 f 0.00 tot 5.10 
+
+Magnetization (x) [total magnetic moment inside the Wigner-Seitz Radius] in OUTCAR
+La: 0.01 0.01 0.01 0.01 
+Zn: 0.00 0.00 
+Mo: 0.00 0.00 
+O: 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 
+
+Total Energy:  -206.612804

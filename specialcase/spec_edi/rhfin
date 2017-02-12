@@ -1,0 +1,23 @@
+#!/bin/sh
+#Program:
+#	Extract element V_RHFIN (PAW_PBE) from $pot directory
+ele1=$1
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+pot=$SCRIPTDIR
+ele=`ls $pot/paw_pbe/ | grep $ele1 |sed -n '1p'` 
+if [ -f $pot/paw_pbe/$ele/V_RHFIN ] ; then 
+   cat $pot/paw_pbe/$ele/V_RHFIN ;
+elif [ -f $pot/paw_pbe/$ele/V_RHFIN.Z ] ; then 
+   zcat $pot/paw_pbe/$ele/V_RHFIN.Z ;
+elif [ -f $pot/paw_pbe/$ele/V_RHFIN.gz ] ; then 
+   zcat $pot/paw_pbe/$ele/V_RHFIN.gz ;
+elif [ -f $pot/paw_pbe/"$ele"_sv/V_RHFIN  ] ; then 
+   cat $pot/paw_pbe/"$ele"_sv/V_RHFIN ;
+elif [ -f $pot/paw_pbe/"$ele"_sv/V_RHFIN.Z  ] ; then 
+   zcat $pot/paw_pbe/"$ele"_sv/V_RHFIN.Z ;
+elif [ -f $pot/paw_pbe/"$ele"_sv/V_RHFIN.gz ] ; then 
+   zcat $pot/paw_pbe/"$ele"_sv/V_RHFIN.gz ;
+else
+   echo "corele error: No {$ele} element pseudopotential found! Aborting..."
+   exit 64
+fi

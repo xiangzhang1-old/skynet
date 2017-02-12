@@ -1,0 +1,9 @@
+#!/bin/bash
+outcar_mag_no=`grep -m 1 -A${keywords[nlinetotal]} 'magnetization (x)' OUTCAR | sed -n "5p" | awk '{print NF}' `
+if [[ -z $outcar_mag_no ]] ; then
+ echo 'gen.source.outcar_mag_no warning: probably no magnetization (x) column in OUTCAR. setting it to a random value.'
+ outcar_mag_no=5
+fi
+fromvar=outcar_mag_no
+tovar=outcar_mag_no
+source ${SCRIPTDIR}/gen.source.fromto

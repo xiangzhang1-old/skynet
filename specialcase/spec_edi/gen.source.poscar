@@ -1,0 +1,11 @@
+#-------------Setting parameters----------------------------------------
+#elements
+if [ ! -f POSCAR ] ; then 
+ echo "POSCAR not found!"
+ exit 0
+fi
+element=`sed -n '6p' POSCAR`
+nelement=`echo $element| wc -w`
+#iterate, for each element do vaspkit
+tmp=0;natom=0;nline=0
+

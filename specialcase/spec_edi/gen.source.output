@@ -1,0 +1,78 @@
+#!/bin/bash
+#-------------Choose whether vaspkit or split_dos-----------------------
+#-------------------------OUTCAR RWIGS charge-----------------------------
+nlinetot=40 #MAXIMUM ATOM NUMBER = 40-4
+natom=0
+nline=0
+tmp=0
+for ((i=1;i<=$nelement;i++))
+do
+ #get the name-of-orbital
+ orbital=`grep -m 1 -A${keywords[nlinetotal]} '# of ion' OUTCAR | sed -n '1p'`
+ norbital=`echo $orbital| wc -w`
+ norbital=$(($norbital-3))
+ #get the fermi-line
+ ele="`echo $element| awk -v number=$i '{print $number}'`"
+ tmp=`cat POSCAR | sed -n '7p' | awk -v number=$i '{print $number}'`
+ for ((j=1;j<=$tmp;j++))
+ do
+  nline=$(($natom+$j+2))
+  fermi_line=`grep -m 1 -A${keywords[nlinetotal]} '# of ion' OUTCAR | sed -n "${nline}p" `
+  charg=`echo $fermi_line | awk '{print $(NF)}'`
+  if [[ $j == 1 ]] ; then
+  if [[ $i == 2 ]] || [[ $i == 3 ]] || [[ $i == 4 ]] ; then
+    printf "%.2f " $charg
+  fi
+fi
+ done
+ natom=$(($natom+$tmp))
+done
+
+#----------------------------------OUTCAR magnetization(x)-------------------
+natom=0 # when number-writing, natom is total number of atoms (not types) BEFORE the present atom type
+tmp=0   # when number-writing, tmp   is the total number of atoms of THIS TYPE
+nline=0 # when number-writing, nline is the No of line to be written, =$natom+4+(1 to $tmp)
+for ((i=1;i<=$nelement;i++))
+do
+ tmp=`cat POSCAR | sed -n '7p' | awk -v number=$i '{print $number}'`
+ ele="`echo $element| awk -v number=$i '{print $number}'`"
+ for ((j=1;j<=$tmp;j++))
+ do
+  nline=$(($natom+$j+4))
+  charg=`grep -m 1 -A${keywords[nlinetotal]} 'magnetization (x)' OUTCAR | sed -n "${nline}p"  | awk -v number=${keywords[outcar_mag_no]} '{print $number}'`
+  if [[ $i == 2 ]] || [[ $i == 3 ]] ; then
+   printf "%.2f " $charg
+  fi
+ done
+ natom=$(($natom+$tmp))
+done
+
+#----------------------OUTCAR RWIGS charge, decomposed---------------------
+nlinetot=40 #MAXIMUM ATOM NUMBER = 40-4
+natom=0
+nline=0
+tmp=0
+for ((i=1;i<=$nelement;i++))
+do
+ #get the name-of-orbital
+ orbital=`grep -m 1 -A${keywords[nlinetotal]} '# of ion' OUTCAR | sed -n '1p'`
+ norbital=`echo $orbital| wc -w`
+ norbital=$(($norbital-3))
+ #get the fermi-line
+ ele="`echo $element| awk -v number=$i '{print $number}'`"
+ tmp=`cat POSCAR | sed -n '7p' | awk -v number=$i '{print $number}'`
+ natom=$(($natom+$tmp))
+ nline=$(($natom+2))
+ fermi_line=`grep -m 1 -A${keywords[nlinetotal]} '# of ion' OUTCAR | sed -n "${nline}p" `
+ #parse the fermi-line
+ if [[ $i == 2 ]] || [[ $i == 3 ]] ; then
+ for ((j=2;j<=3;j++))
+ do
+  orbit="`echo $orbital | awk -v number=$(($j+3)) '{print $number}'`"
+  orbit=`echo $math$orbit$math`
+  orbit_occ="`echo $fermi_line | awk -v number=$(($j+1)) '{print $number}'`"
+  printf "%.2f " $orbit_occ
+ done
+ fi
+done
+echo

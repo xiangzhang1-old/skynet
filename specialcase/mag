@@ -1,0 +1,60 @@
+#!/bin/bash
+#Usage: 
+#	charge [-tex/-normal] [-vaspkit/-splitdos] [-spin/-nonspin]. Default is -normal -splitdos -spin.
+#	-tex produces .tex tabular output. -vaspkit uses vaspkit to get integrated pdos, while -splitdos uses vtstscripts/split_dos and Python to integrate it.
+#Features:
+#   	occupancy of s,px,dx2-y2... orbitals (requires: vaspkit || split_dos & numpy ; lm-DOSCAR and POSCAR)
+#   	Bader/RWIGS charge (requires: bader ; CHGCAR )
+#   	greps energy
+#   	supports non-spin-polarized (-nonspin) calculation, supports TeX tabular+math output
+#History:
+#	Written Xiang Zhang 02/Aug/2015
+#	Modified Xiang Zhang 17/Aug/2015: Reformatted options, added splitdos approach due to vaspkit bugs.
+#-------------Instructions and parameters-------------------------------
+# Set Orbital_Max to 1 for up-to-s evaluation, 1+3 for p, etc. PDOS only. For clarity. Will display occupancy/up_to_max_energy_occupancy.
+Orbital_Max=9
+max_energy=7
+#-------------End instructions and parameters---------------------------
+
+#-------------Setting parameters----------------------------------------
+default_tex='-normal'
+default_dos='-split_dos'
+default_spin='-spin'
+if [[ "$*" =~ "-nonspin" ]] ; then
+default_spin='-nonspin'
+fi
+if [[ "$*" =~ "-tex" ]] ; then
+default_tex='-tex'
+fi
+if [[ "$*" =~ "-vaspkit" ]] ; then
+default_dos='-vaspkit'
+fi
+#elements
+if [ ! -f POSCAR ] ; then 
+ echo "POSCAR not found!"
+ exit 0
+fi
+element=`sed -n '6p' POSCAR`
+nelement=`echo $element| wc -w`
+#iterate, for each element do vaspkit
+tmp=0;natom=0;nline=0
+#----------------------------------OUTCAR magnetization(x)-------------------
+nlinetot=140 #MAXIMUM ATOM NUMBER = 140-6
+natom=0
+nline=0
+tmp=0
+spdfnumber=5
+if [ `grep -m 1 -A$nlinetot 'magnetization (x)' OUTCAR | sed -n "3p"  | awk '{print $7}'` == 'f' ] ; then
+spdfnumber=6
+fi
+for ((i=1;i<=$nelement;i++))
+do
+ tmp=`cat POSCAR | sed -n '7p' | awk -v number=$i '{print $number}'`
+ ele="`echo $element| awk -v number=$i '{print $number}'`"
+ for ((j=1;j<=$tmp;j++))
+ do
+  nline=$(($natom+$j+4))
+    printf "%f  " `grep -m 1 -A$nlinetot 'magnetization (x)' OUTCAR | sed -n "${nline}p"  | awk -v number=$spdfnumber '{print $number}'`
+ done
+ natom=$(($natom+$tmp))
+done

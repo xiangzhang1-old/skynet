@@ -1,0 +1,34 @@
+#!/usr/bin/python
+#judge whether a material is insular, bms or what
+import numpy as np
+import os
+#print os.popen('echo -n ${PWD##*/}').read(),
+f=open("TDOS.dat","r")
+lines=f.readlines()
+base=np.float64([lines[i].split() for i in range(1,len(lines))])
+fermi=abs(base[:,0]).argmin()
+if abs(base[fermi][1])>1E-3 and abs(base[fermi][2])>1E-3:
+ print 'COND'
+elif abs(base[fermi][1])<1E-2 and abs(base[fermi][2])<1E-2: 
+ tophalf=base[fermi:0:-1]
+ bothalf=base[fermi:len(base)]
+ top1=next(tophalf[x][0] for x in range(0,len(tophalf)) if abs(tophalf[x][1])>1E-3)
+ top2=next(tophalf[x][0] for x in range(0,len(tophalf)) if abs(tophalf[x][2])>1E-3)
+ bot1=next(tophalf[x][0] for x in range(0,len(bothalf)) if abs(bothalf[x][1])>1E-3)
+ bot2=next(tophalf[x][0] for x in range(0,len(tophalf)) if abs(bothalf[x][1])>1E-3)
+ if abs(top1-top2)<1E-2 or abs(bot1-bot2)<1E-2:
+  print 'INSU'
+ else:
+  print 'BMS ',min(abs(top1-top2),min(top1,top2)-max(bot1,bot2),abs(bot1-bot2))
+elif abs(base[fermi][1])<1E-3 and abs(base[fermi][2])>1E-2:
+ tophalf=base[fermi:0:-1]
+ bothalf=base[fermi:len(base)]
+ top1=next(tophalf[x][0] for x in range(0,len(tophalf)) if abs(tophalf[x][1])>1E-3 or abs(tophalf[x][2])<1E-3)
+ bot1=next(bothalf[x][0] for x in range(0,len(bothalf)) if abs(bothalf[x][1])>1E-3 or abs(bothalf[x][2])<1E-3)
+ print 'HM ',bot1-top1
+elif abs(base[fermi][1])>1E-2 and abs(base[fermi][2])<1E-3:
+ tophalf=base[fermi:0:-1]
+ bothalf=base[fermi:len(base)]
+ top1=next(tophalf[x][0] for x in range(0,len(tophalf)) if abs(tophalf[x][2])>1E-3 or abs(tophalf[x][1])<1E-3)
+ bot1=next(bothalf[x][0] for x in range(0,len(bothalf)) if abs(bothalf[x][2])>1E-3 or abs(bothalf[x][1])<1E-3)
+ print 'HM ',bot1-top1
